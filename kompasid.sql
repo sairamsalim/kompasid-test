@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 02, 2021 at 06:45 PM
+-- Generation Time: Mar 09, 2021 at 06:56 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.26
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `na_blog`
+-- Database: `kompasid`
 --
 
 -- --------------------------------------------------------
@@ -33,6 +33,7 @@ CREATE TABLE `blogs` (
   `slug` varchar(255) NOT NULL,
   `content` mediumtext NOT NULL,
   `image` varchar(255) NOT NULL,
+  `count` int(10) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL
@@ -42,9 +43,9 @@ CREATE TABLE `blogs` (
 -- Dumping data for table `blogs`
 --
 
-INSERT INTO `blogs` (`id`, `title`, `slug`, `content`, `image`, `created_at`, `updated_at`, `user_id`) VALUES
-(4, 'test blog', 'test-blog', '<p>test test</p><p><br></p><p>dah gitu aja<br></p>', '2021-03-02T17:29:38+00:005850.jpg', '2021-02-18 12:27:25', '2021-03-02 10:29:38', 1),
-(5, 'test kegiatan', 'test-kegiatan', 'test test', '2021-03-02T17:34:10+00:008144.png', '2021-02-18 12:27:42', '2021-03-02 10:34:10', 1);
+INSERT INTO `blogs` (`id`, `title`, `slug`, `content`, `image`, `count`, `created_at`, `updated_at`, `user_id`) VALUES
+(4, 'test blog', 'test-blog', '<p>test test</p><p><br></p><p>dah gitu aja<br></p>', '2021-03-02T17:29:38+00:005850.jpg', NULL, '2021-02-18 12:27:25', '2021-03-02 10:29:38', 1),
+(5, 'test kegiatan', 'test-kegiatan', 'test test', '2021-03-02T17:34:10+00:008144.png', NULL, '2021-02-18 12:27:42', '2021-03-02 10:34:10', 1);
 
 -- --------------------------------------------------------
 
