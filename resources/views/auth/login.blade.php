@@ -6,7 +6,9 @@
 <div class="login-box">
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">{{ __('Login') }}</p>
+      <p class="login-box-msg mb-3">{{ __('Login') }}</p>
+      <p class="login-box-msg">Username: admin</p>
+      <p class="login-box-msg">Password: 12345678</p>
 
       <form method="POST" action="{{ route('login') }}">
         @csrf
