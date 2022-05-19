@@ -2,24 +2,13 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
-use App\Blog;
-
-class User extends Authenticatable
+use Illuminate\Database\Eloquent\Model;
+class User extends Model
 {
-    use Notifiable;
-    use HasRoles;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    protected $connection = 'users';
+	protected $table = 'users';
     protected $fillable = [
-        'id', 'name', 'email', 'password', 'username'
+        'name', 'email', 'password', 'username', 'date', 'phone', 'status'
     ];
 
     /**
@@ -39,12 +28,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function getBlogs($id)
-    {
-        $blogs = Blog::join('users', 'users.id', '=', 'blog.user_id')
-            ->where('users.user_id', $id)
-            ->select('blogs.name', 'blogs.id')->pluck('name', 'id');
-        return $blogs;
-    }
 }

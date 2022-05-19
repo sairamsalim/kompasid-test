@@ -1,150 +1,209 @@
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Backend-Sairam_Salim') }}</title>
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"/>
-    <!-- Styles -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.0.5/css/adminlte.min.css" integrity="sha512-rVZC4rf0Piwtw/LsgwXxKXzWq3L0P6atiQKBNuXYRbg2FoRbSTIY0k2DxuJcs7dk4e/ShtMzglHKBOJxW8EQyQ==" crossorigin="anonymous" />
-    @stack('css')
-</head>
-<body>
-  <div id="app">
-      <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-          <div class="container">
-              <a class="navbar-brand" href="{{ url('/') }}">
-                  KOMPAS
-              </a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
-  
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <!-- Left Side Of Navbar -->
-                  <ul class="navbar-nav mr-auto"></ul>
+@extends('layout.master')
 
+@push('plugin-styles')
+<link href="{{ asset('public/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}"
+    rel="stylesheet" />
+@endpush
 
-                  <!-- Right Side Of Navbar -->
-                  <ul class="navbar-nav ml-auto">
-                      <!-- Authentication Links -->
-                      @guest
-                          <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
-                      @else
-                          <li class="nav-item dropdown">
-                              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                                  {{ Auth::user()->name }} <span class="caret"></span>
-                              </a>
+@section('content')
+<div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+    <div>
+        <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-12 col-xl-12 stretch-card">
+        <div class="row flex-grow-1">
+            <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-baseline">
+                            <h6 class="card-title mb-0">Live Accounts</h6>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-12 col-xl-5">
+                                <h3 class="mb-2">3,897</h3>
+                                <div class="d-flex align-items-baseline">
+                                    <p class="text-success">
+                                        <span>+3.3%</span>
+                                        <i data-feather="arrow-up" class="icon-sm mb-1"></i>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-12 col-xl-7">
+                                <div id="customersChart" class="mt-md-3 mt-xl-0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-baseline">
+                            <h6 class="card-title mb-0">Processed Accounts</h6>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-12 col-xl-5">
+                                <h3 class="mb-2">35,084</h3>
+                                <div class="d-flex align-items-baseline">
+                                    <p class="text-danger">
+                                        <span>-2.8%</span>
+                                        <i data-feather="arrow-down" class="icon-sm mb-1"></i>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-12 col-xl-7">
+                                <div id="ordersChart" class="mt-md-3 mt-xl-0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-baseline">
+                            <h6 class="card-title mb-0">Approved Accounts</h6>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-12 col-xl-5">
+                                <h3 class="mb-2">89.87%</h3>
+                                <div class="d-flex align-items-baseline">
+                                    <p class="text-success">
+                                        <span>+2.8%</span>
+                                        <i data-feather="arrow-up" class="icon-sm mb-1"></i>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-12 col-xl-7">
+                                <div id="growthChart" class="mt-md-3 mt-xl-0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-baseline">
+                            <h6 class="card-title mb-0">Failed Accounts</h6>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-12 col-xl-5">
+                                <h3 class="mb-2">89.87%</h3>
+                                <div class="d-flex align-items-baseline">
+                                    <p class="text-success">
+                                        <span>+2.8%</span>
+                                        <i data-feather="arrow-up" class="icon-sm mb-1"></i>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-12 col-xl-7">
+                                <div id="growthChart" class="mt-md-3 mt-xl-0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- row -->
 
-                              <div class="dropdown-menu dropdown-menu-right">
-                                  <a class="dropdown-item" href="{{ route('logout') }}"
-                                     onclick="event.preventDefault();
-                                                   document.getElementById('logout-form').submit();">
-                                      {{ __('Logout') }}
-                                  </a>
+<div class="row">
+    <div class="col-12 col-xl-12 grid-margin stretch-card">
+        <div class="card overflow-hidden">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-baseline mb-4 mb-md-3">
+                    <h6 class="card-title mb-0">Daily New Approved Accounts</h6>
+                </div>
+                <div class="row align-items-start mb-2">
+                    <div class="col-md-7">
+                        <p class="text-muted tx-13 mb-3 mb-md-0">Revenue is the income that a business has from its
+                            normal business activities, usually from the sale of goods and services to customers.</p>
+                    </div>
+                </div>
+                <div id="revenueChart"></div>
+            </div>
+        </div>
+    </div>
+</div> <!-- row -->
 
+<div class="row">
+    <div class="col-lg-7 col-xl-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-baseline mb-2">
+                    <h6 class="card-title mb-0">Monthly Successful Deposits</h6>
+                </div>
+                <p class="text-muted">Sales are activities related to selling or the number of goods or services sold in
+                    a given time period.</p>
+                <div id="monthlySalesChart"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 col-xl-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-baseline mb-2">
+                    <h6 class="card-title mb-0">Cloud storage</h6>
+                    <div class="dropdown mb-2">
+                        <button class="btn p-0" type="button" id="dropdownMenuButton5" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
+                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye"
+                                    class="icon-sm me-2"></i> <span class="">View</span></a>
+                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
+                                    data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
+                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
+                                    data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
+                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
+                                    data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
+                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
+                                    data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="storageChart"></div>
+                <div class="row mb-3">
+                    <div class="col-6 d-flex justify-content-end">
+                        <div>
+                            <label
+                                class="d-flex align-items-center justify-content-end tx-10 text-uppercase fw-bolder">Total
+                                storage <span class="p-1 ms-1 rounded-circle bg-secondary"></span></label>
+                            <h5 class="fw-bolder mb-0 text-end">8TB</h5>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div>
+                            <label class="d-flex align-items-center tx-10 text-uppercase fw-bolder"><span
+                                    class="p-1 me-1 rounded-circle bg-primary"></span> Used storage</label>
+                            <h5 class="fw-bolder mb-0">~5TB</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-grid">
+                    <button class="btn btn-primary">Upgrade storage</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- row -->
+@endsection
 
-                                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                      @csrf
-                                  </form>
-                              </div>
-                          </li>
-                      @endguest
-                  </ul>
-              </div>
-          </div>
-      </nav>
+@push('plugin-scripts')
+<script src="{{ asset('public/assets/plugins/chartjs/chart.min.js') }}"></script>
+<script src="{{ asset('public/assets/plugins/jquery.flot/jquery.flot.js') }}"></script>
+<script src="{{ asset('public/assets/plugins/jquery.flot/jquery.flot.resize.js') }}"></script>
+<script src="{{ asset('public/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('public/assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
+<script src="{{ asset('public/assets/plugins/progressbar-js/progressbar.min.js') }}"></script>
+@endpush
 
-      <aside class="main-sidebar sidebar-dark-primary elevation-4">
-          <!-- Brand Logo -->
-          <a href="home" class="brand-link">
-            <span class="brand-text font-weight-light">KOMPAS</span>
-          </a>
-
-          <!-- Sidebar -->
-          <div class="sidebar">
-
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item has-treeview
-                @if( in_array(request()->route()->getName(), array('users.index', 'users.show', 'users.edit', 'users.create', 'roles.index', 'roles.show', 'roles.edit', 'roles.create')) )
-                  menu-open
-                @endif">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-user-friends"></i>
-                    <p>
-                      Users
-                      <i class="fas fa-angle-left right"></i>
-                    </p>
-                  </a>
-                  <ul class="nav nav-treeview ml-3">
-                    <li class="nav-item">
-                      <a href="{{ route('users.index') }}" class="nav-link
-                      @if( in_array(request()->route()->getName(), array('users.index', 'users.show', 'users.edit', 'users.create')) )
-                        active
-                      @endif">
-                        <p>All User List</p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="{{ route('roles.index') }}" class="nav-link
-                      @if( in_array(request()->route()->getName(), array('roles.index', 'roles.show', 'roles.edit', 'roles.create')) )
-                        active
-                      @endif">
-                        <p>Roles Management</p>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('blogs.index') }}" class="nav-link
-                  @if( in_array(request()->route()->getName(), array('blogs.index', 'blogs.show', 'blogs.edit', 'blogs.create')) )
-                    active
-                  @endif">
-                    <i class="nav-icon fas fa-newspaper"></i>
-                    <p>
-                      Blogs
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('categories.index') }}" class="nav-link
-                  @if( in_array(request()->route()->getName(), array('categories.index', 'categories.show', 'categories.edit', 'categories.create')) )
-                    active
-                  @endif">
-                  <i class="nav-icon fas fa-tags"></i>
-                    <p>
-                      Categories
-                    </p>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-          </div>
-          <!-- /.sidebar -->
-      </aside>
-
-      <main class="@yield('class')">
-          <div class="content-wrapper">
-              <div class="container-fluid">
-              @yield('content')
-              </div>
-          </div>
-      </main>
-  </div>
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.0.5/js/adminlte.min.js" integrity="sha512-++c7zGcm18AhH83pOIETVReg0dr1Yn8XTRw+0bWSIWAVCAwz1s2PwnSj4z/OOyKlwSXc4RLg3nnjR22q0dhEyA==" crossorigin="anonymous"></script>
-  @stack('scripts')
-</body>
-</html>
+@push('custom-scripts')
+<script src="{{ asset('public/assets/js/dashboard.js') }}"></script>
+<script src="{{ asset('public/assets/js/datepicker.js') }}"></script>
+@endpush

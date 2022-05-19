@@ -11,13 +11,15 @@
 |
 */
 
+Route::resource('request-demo','DemoController');
+
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('/','Auth\LoginController@login');
 	Route::get('/home', 'HomeController@index')->name('home');
-	Route::resource('users','UserController');
-	Route::resource('roles','RoleController');
-	Route::resource('categories','CategoryController');
-	Route::resource('blogs','BlogController');
+	Route::resource('institutions','AdminController');
+	Route::resource('quotas','QuotaController');
+	Route::resource('chats','ChatController');
+	Route::resource('databox','DataboxController');
 });

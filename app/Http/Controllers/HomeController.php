@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\QuotaController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -20,6 +21,12 @@ class HomeController extends GenericController
      */
     public function index()
     {
-        return view('home');
+        if(auth()->user()->username == 'admin') {
+            $home = new AdminController;
+            return $home->index();
+        } else {
+            $home = new QuotaController;
+            return $home->index();
+        }
     }
 }
